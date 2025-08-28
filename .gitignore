@@ -1,1 +1,17 @@
 node_modules/
+# Angular / Node
+marriage-hall/node_modules/
+marriage-hall/dist/
+marriage-hall/.angular/
+marriage-hall/.vscode/
+
+# Spring Boot / Java
+marriage-hall-booking/target/
+marriage-hall-booking/.idea/
+marriage-hall-booking/.mvn/
+
+# Docker / logs
+*.log
+
+# OS files
+.DS_Store
