@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marriage-hall-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marriage-hall-backend
+  template:
+    metadata:
+      labels:
+        app: marriage-hall-backend
+    spec:
+      containers:
+        - name: backend
+          image: your-dockerhub-username/marriage-hall-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/marriage_hall
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: root
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: marriage-hall-backend
+spec:
+  selector:
+    app: marriage-hall-backend
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP
