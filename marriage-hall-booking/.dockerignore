@@ -1,6 +1,0 @@
-target
-.idea
-.vscode
-.git
-node_modules
-*.log

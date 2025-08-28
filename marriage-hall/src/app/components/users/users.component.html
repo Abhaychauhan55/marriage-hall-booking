@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <h2>Users</h2>
+
+  <!-- User Form -->
+  <form (ngSubmit)="saveUser()" class="mb-3">
+    <div class="row g-2">
+      <div class="col-md-3">
+        <input type="text" [(ngModel)]="selectedUser.name" name="name" class="form-control" placeholder="Name" required>
+      </div>
+      <div class="col-md-3">
+        <input type="email" [(ngModel)]="selectedUser.email" name="email" class="form-control" placeholder="Email" required>
+      </div>
+      <div class="col-md-3">
+        <input type="text" [(ngModel)]="selectedUser.phone" name="phone" class="form-control" placeholder="Phone">
+      </div>
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Add' }} User</button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="cancelEdit()" *ngIf="isEditMode">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Users Table -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-2" (click)="editUser(user)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

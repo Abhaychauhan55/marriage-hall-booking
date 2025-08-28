@@ -1,0 +1,34 @@
+<div class="container mt-4">
+  <h2>Halls Dashboard</h2>
+
+  <form (ngSubmit)="saveHall()" class="mb-3">
+    <input [(ngModel)]="selectedHall.name" name="name" placeholder="Hall Name" required class="form-control mb-2">
+    <input [(ngModel)]="selectedHall.location" name="location" placeholder="Location" required class="form-control mb-2">
+    <input [(ngModel)]="selectedHall.capacity" name="capacity" type="number" placeholder="Capacity" required class="form-control mb-2">
+
+    <button type="submit" class="btn btn-success">{{ isEditMode ? 'Update Hall' : 'Add Hall' }}</button>
+    <button type="button" class="btn btn-secondary" (click)="cancelEdit()" *ngIf="isEditMode">Cancel</button>
+  </form>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Capacity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hall of halls">
+        <td>{{ hall.name }}</td>
+        <td>{{ hall.location }}</td>
+        <td>{{ hall.capacity }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editHall(hall)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteHall(hall.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

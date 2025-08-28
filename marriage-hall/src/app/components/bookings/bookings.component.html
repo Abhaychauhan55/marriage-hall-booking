@@ -1,0 +1,104 @@
+<div class="container mt-4">
+  <h2>Bookings Dashboard</h2>
+
+  <!-- Booking Form -->
+  <div class="card p-3 mb-4">
+    <h4>{{ isEditMode ? 'Edit Booking' : 'Add Booking' }}</h4>
+    <form (ngSubmit)="saveBooking()">
+      <!-- User Selection -->
+      <div class="mb-3">
+        <label for="userSelect" class="form-label">User</label>
+        <select
+          id="userSelect"
+          class="form-select"
+          [(ngModel)]="selectedBooking.user"
+          name="user"
+          required
+        >
+          <option [ngValue]="null">Select User</option>
+          <option *ngFor="let user of users" [ngValue]="user">{{ user.name }}</option>
+        </select>
+      </div>
+
+      <!-- Hall Selection -->
+      <div class="mb-3">
+        <label for="hallSelect" class="form-label">Hall</label>
+        <select
+          id="hallSelect"
+          class="form-select"
+          [(ngModel)]="selectedBooking.hall"
+          name="hall"
+          required
+        >
+          <option [ngValue]="null">Select Hall</option>
+          <option *ngFor="let hall of halls" [ngValue]="hall">{{ hall.name }}</option>
+        </select>
+      </div>
+
+      <!-- Date Input -->
+      <div class="mb-3">
+        <label for="dateInput" class="form-label">Date</label>
+        <input
+          type="date"
+          id="dateInput"
+          class="form-control"
+          [(ngModel)]="selectedBooking.date"
+          name="date"
+          required
+        />
+      </div>
+
+      <!-- Status Input -->
+      <div class="mb-3">
+        <label for="statusInput" class="form-label">Status</label>
+        <input
+          type="text"
+          id="statusInput"
+          class="form-control"
+          [(ngModel)]="selectedBooking.status"
+          name="status"
+          placeholder="e.g., Confirmed, Pending"
+        />
+      </div>
+
+      <!-- Buttons -->
+      <button type="submit" class="btn btn-primary">
+        {{ isEditMode ? 'Update Booking' : 'Add Booking' }}
+      </button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Bookings Table -->
+  <div class="card p-3">
+    <h4>All Bookings</h4>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Hall</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings">
+          <td>{{ booking.id }}</td>
+          <td>{{ booking.user.name }}</td>
+          <td>{{ booking.hall.name }}</td>
+          <td>{{ booking.date }}</td>
+          <td>{{ booking.status }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-1" (click)="editBooking(booking)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteBooking(booking.id!)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="bookings.length === 0">
+          <td colspan="6" class="text-center">No bookings found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
